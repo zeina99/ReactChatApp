@@ -1,0 +1,40 @@
+.JoinWrapper {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  padding: 10px;
+  background-color: #5047ce;
+  margin-top: 50px;
+}
+.outerContainer {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+input {
+  padding: 5px;
+}
+
+#roomnameLabel {
+  padding-right: 4px;
+}
+.username {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 40px;
+}
+.roomname {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 40px;
+}
+#submit {
+  padding: 6px;
+  margin: 20px 40px;
+}
