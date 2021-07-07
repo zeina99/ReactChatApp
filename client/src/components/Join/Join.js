@@ -20,7 +20,7 @@ function Join({ changeUserApproval, handleInputChange, roomName, username }) {
           <br />
           <input
             placeholder="Name"
-            name="username"
+            name="name"
             type="text"
             onChange={handleInputChange}
             value={username}

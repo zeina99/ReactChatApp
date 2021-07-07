@@ -4,17 +4,17 @@ import Join from "./components/Join/Join";
 import Chat from "./components/Chat/Chat";
 
 const inputs = {
-  username: "username",
+  name: "name",
   room: "room",
 };
 function App() {
   const [userApproved, setUserApproved] = useState(false);
   const [roomName, setRoomName] = useState("");
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
 
   const handleInputChange = (event) => {
-    if (event.target.name === inputs.username) {
-      setUsername(event.target.value);
+    if (event.target.name === inputs.name) {
+      setName(event.target.value);
     } else if (event.target.name === inputs.room)
       setRoomName(event.target.value);
   };
@@ -31,13 +31,13 @@ function App() {
           changeUserApproval={changeUserApproval}
           handleInputChange={handleInputChange}
           roomName={roomName}
-          username={username}
+          name={name}
         />
       ) : (
         <Chat
           changeUserApproval={changeUserApproval}
           room={roomName}
-          username={username}
+          name={name}
         />
       )}
     </div>
