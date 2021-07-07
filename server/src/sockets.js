@@ -1,7 +1,20 @@
-import socketIO from "socket.io";
+const socketIO = require("socket.io");
 
-const io = socketIO();
 
-io.on("connection", (socket) => {
-  console.log("Client connected");
+function sockets(server, PORT) {
+const io = socketIO({
+  cors: {
+    cors:true,
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
 });
+  io.on("connection", (socket) => {
+    console.log(socket.id);
+  });
+
+  server.listen(PORT, () => {
+    console.log(`listening on Port ${PORT}`);
+  });
+}
+module.exports = { sockets };
