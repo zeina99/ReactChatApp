@@ -1,14 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 
-const ChatInput = ({ messages, setMessages, name }) => {
-  const [userInput, setUserInput] = useState("");
+const ChatInput = ({ userInput, setUserInput, sendMessage }) => {
   const handleInput = (event) => {
     setUserInput(event.target.value);
   };
-  const addMessage = () => {
-    setMessages([...messages, { name: name, message: userInput }]);
-    setUserInput("");
-  };
+
   return (
     <div className="input-area">
       <input
@@ -17,7 +13,7 @@ const ChatInput = ({ messages, setMessages, name }) => {
         value={userInput}
         onChange={handleInput}
       />
-      <button className="send-button" onClick={addMessage}>
+      <button className="send-button" onClick={sendMessage}>
         Send
       </button>
     </div>

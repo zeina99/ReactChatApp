@@ -4,22 +4,39 @@ import ChatInput from "../ChatInput/ChatInput";
 import "./Chat.css";
 import io from "socket.io-client";
 
+let socket;
 function Chat({ changeUserApproval, room, name }) {
   const [messages, setMessages] = useState([]);
 
+  const [userInput, setUserInput] = useState("");
   const handleBackButton = () => {
     changeUserApproval();
   };
+  const sendMessage = () => {
+    let message = { name: name, message: userInput }
+    setMessages([...messages, message]);
+    setUserInput("");
+
+    console.log('sliced message: ', message)
+    socket.emit("message", message);
+  };
   useEffect(() => {
-    const socket = io("http://localhost:5050");
+    socket = io("http://localhost:5050");
 
     socket.on("connect", () => {
-      console.log("successfully connected: ", socket.id); 
+      console.log("successfully connected: ", socket.id);
     });
-    // connect the user to the server - DONE 
+    // connect the user to the server - DONE
+    // once the user sends any message, broadcast to all clients (server)
+    socket.on("all-messages", (message) => {
+      setMessages([...messages, message]);
+      console.log("new messages recieved from other client: ", message);
+    });
 
-    // once the user sends any message, broadcast to all clients (server) 
-    // socket event: message is recieved -> rerender messages to view the latest message recieved (client)
+    return () => {
+      socket.close();
+    };
+
   }, []);
 
   return (
@@ -31,11 +48,21 @@ function Chat({ changeUserApproval, room, name }) {
       <div className="chatsection">
         <div className="chat-area">
           {messages.map((message, index) => {
-            return <ChatItem key={index}name={message.name} message={message.message} />;
+            return (
+              <ChatItem
+                key={index}
+                name={message.name}
+                message={message.message}
+              />
+            );
           })}
         </div>
 
-        <ChatInput messages={messages} setMessages={setMessages} name={name} />
+        <ChatInput
+          userInput={userInput}
+          setUserInput={setUserInput}
+          sendMessage={sendMessage}
+        />
       </div>
     </div>
   );
