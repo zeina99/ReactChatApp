@@ -1,9 +1,8 @@
 import React from "react";
 import "./Join.css";
-function Join({ changeUserApproval, handleInputChange, roomName, username }) {
-
+function Join({ changeUserApproval, handleInputChange, roomName, name }) {
   const handleSubmit = () => {
-    if (roomName !== "" && username !== "") {
+    if (roomName !== "" && name !== "") {
       changeUserApproval();
     }
   };
@@ -23,7 +22,7 @@ function Join({ changeUserApproval, handleInputChange, roomName, username }) {
             name="name"
             type="text"
             onChange={handleInputChange}
-            value={username}
+            value={name}
           />
         </div>
         <div className="roomname">
