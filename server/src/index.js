@@ -16,11 +16,17 @@ const io = socketio(server, {
 });
 
 io.on("connection", (socket) => {
+  // recieve join event
+  socket.on("join", (user_data) => {
+    // broadcast user joining message
+    socket.to(user_data.room).emit("user-join", user_data);
+    // socket join to room
+    socket.join(user_data.room);
+  });
 
   socket.on("message", (message) => {
-    // emit message to all clients
-    console.log("message: ",message)
-    socket.broadcast.emit('all-messages', message)
+    // broadcast message to all people except the sender
+    socket.to(message.room).emit("all-messages", message);
   });
 });
 

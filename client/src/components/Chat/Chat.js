@@ -7,36 +7,40 @@ import io from "socket.io-client";
 let socket;
 function Chat({ changeUserApproval, room, name }) {
   const [messages, setMessages] = useState([]);
-
   const [userInput, setUserInput] = useState("");
+
   const handleBackButton = () => {
     changeUserApproval();
   };
   const sendMessage = () => {
-    let message = { name: name, message: userInput }
-    setMessages([...messages, message]);
+    let message = { name: name, message: userInput, room: room };
+    setMessages((messages) => [...messages, message]);
     setUserInput("");
 
-    console.log('sliced message: ', message)
     socket.emit("message", message);
   };
+
   useEffect(() => {
+    // connect to server
     socket = io("http://localhost:5050");
 
     socket.on("connect", () => {
       console.log("successfully connected: ", socket.id);
     });
-    // connect the user to the server - DONE
+
+    // joining the channel server side
+    socket.emit("join", { name, room });
+
     // once the user sends any message, broadcast to all clients (server)
     socket.on("all-messages", (message) => {
-      setMessages([...messages, message]);
+      setMessages((messages) => [...messages, message]);
       console.log("new messages recieved from other client: ", message);
+      console.log("all current messages: ", messages);
     });
 
     return () => {
       socket.close();
     };
-
   }, []);
 
   return (
