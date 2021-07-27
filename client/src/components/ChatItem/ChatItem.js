@@ -1,6 +1,7 @@
 import React from "react";
+import "./ChatItem.css";
 
-function ChatItem({name, message}) {
+function ChatItem({ name, message }) {
   return (
     <div className="chat-item">
       <h4>{name}</h4>

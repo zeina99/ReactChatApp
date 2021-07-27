@@ -19,20 +19,3 @@
   flex-direction: column;
   justify-content: space-between;
 }
-.chat-item {
-  border: solid 2px black;
-  margin: 3px 7px;
-  padding: 0px 10px;
-}
-.input-area {
-  display: flex;
-  margin: 5px 5px;
-}
-.chat-input {
-  flex: 7 1 auto;
-  padding: 7px;
-}
-.send-button {
-  flex: 1 1 10px;
-  margin-left: 5px;
-}

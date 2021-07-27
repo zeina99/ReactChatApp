@@ -1,0 +1,13 @@
+.input-area {
+  display: flex;
+  margin: 5px 5px;
+}
+
+.chat-input {
+  flex: 7 1 auto;
+  padding: 7px;
+}
+.send-button {
+  flex: 1 1 10px;
+  margin-left: 5px;
+}
